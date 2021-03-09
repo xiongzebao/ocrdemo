@@ -17,6 +17,8 @@ import android.hardware.camera2.TotalCaptureResult;
 import android.media.Image;
 import android.media.ImageReader;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.util.Size;
 import android.view.LayoutInflater;
@@ -52,6 +54,31 @@ import java.util.concurrent.TimeUnit;
  * A simple {@link Fragment} subclass.
  */
 public class PreviewFragment extends BaseFragment {
+
+    public final static int UPDATE_TIP=1;
+
+    public final static int UPDATE_IMAGE=2;
+    protected  ScanResult result = new ScanResult();
+    @SuppressLint("HandlerLeak")
+    Handler handler = new Handler(){
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+             switch (msg.what){
+                 case UPDATE_TIP:
+                      ScanResult result = (ScanResult) msg.obj;
+                      if(result.bitmap!=null){
+                          iv_show.setImageBitmap(result.bitmap);
+                      }
+                     break;
+                 case UPDATE_IMAGE:
+                     break;
+             }
+
+
+        }
+    };
 
 
 
@@ -236,12 +263,35 @@ public class PreviewFragment extends BaseFragment {
     }
 
 
-    protected ScanResult ocrRecognize(byte[] image){
+
+    protected ScanResult ocrRecognize(byte[] bytes){
+        Bitmap temp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+/*        Log.d("xiong","image->" + image.getWidth() + "|" + image.getHeight() + " format->" + image.getFormat() +
+                " planes.length->" + image.getPlanes().length + " bytes->" + bytes.length + " temp->" + temp.getByteCount());*/
+        //   Bitmap newBitmap = BitmapUtil.rotateBitmap(temp, 90);
+        //  iv_show.setImageBitmap(temp);
+
+        result.code = UPDATE_TIP;
+        result.bitmap = temp;
 
 
-        return null;
+        return result;
     }
 
+
+    private void asyncOcrRecognize(final byte[] image){
+        Runnable runnable  = new Runnable() {
+            @Override
+            public void run() {
+              ScanResult  result =   ocrRecognize(image);
+              Message  message =  handler.obtainMessage();
+              message.what = UPDATE_TIP;
+              message.obj = result;
+              handler.sendMessage(message);
+            }
+        };
+        threadPoolExecutor.execute(runnable);
+    }
 
 
 
@@ -264,12 +314,7 @@ public class PreviewFragment extends BaseFragment {
                             ByteBuffer byteBuffer = image.getPlanes()[0].getBuffer();
                             byte[] bytes = new byte[byteBuffer.remaining()];
                             byteBuffer.get(bytes);
-                            Bitmap temp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                            Log.d("xiong","image->" + image.getWidth() + "|" + image.getHeight() + " format->" + image.getFormat() +
-                                    " planes.length->" + image.getPlanes().length + " bytes->" + bytes.length + " temp->" + temp.getByteCount());
-                         //   Bitmap newBitmap = BitmapUtil.rotateBitmap(temp, 90);
-                          //  iv_show.setImageBitmap(temp);
-
+                            asyncOcrRecognize(bytes);
                             image.close();
                         }
                     }

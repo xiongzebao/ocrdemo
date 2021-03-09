@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.demo.demos.base.BaseActivity;
 import com.demo.demos.fragments.GLPreviewFragment;
+import com.demo.demos.fragments.OcrPreviewFragment;
 import com.demo.demos.fragments.PhotoFragment;
 import com.demo.demos.fragments.PreviewFragment;
 import com.demo.demos.utils.CameraUtils;
@@ -47,7 +48,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnPreview:
-                transactFragment(new PreviewFragment());
+                transactFragment(new OcrPreviewFragment());
                 break;
             case R.id.btnCapture:
                 transactFragment(new PhotoFragment());
