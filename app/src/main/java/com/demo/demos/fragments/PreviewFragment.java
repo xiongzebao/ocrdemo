@@ -40,6 +40,7 @@ import com.demo.demos.base.BaseFragment;
 import com.demo.demos.model.ScanResult;
 import com.demo.demos.utils.CameraUtils;
 import com.demo.demos.views.AutoFitTextureView;
+import com.demo.demos.views.ViewfinderView;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -97,6 +98,10 @@ public class PreviewFragment extends BaseFragment {
     int sizeIndex = 0;
     Size previewSize;//预览尺寸
     ImageReader previewReader;
+    ViewfinderView viewfinderView;
+
+
+
 
     //创建基本线程池
     final ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(3,5,1, TimeUnit.SECONDS,
@@ -161,6 +166,7 @@ public class PreviewFragment extends BaseFragment {
 
     private void initViews(View view) {
         iv_show = view.findViewById(R.id.iv_show);
+        viewfinderView = view.findViewById(R.id.viewFinder);
         btnChangePreviewSize = view.findViewById(R.id.btn_change_preview_size);
         btnChangePreviewSize.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -198,6 +204,13 @@ public class PreviewFragment extends BaseFragment {
 
         //设置 TextureView 的状态监听
         previewView.setSurfaceTextureListener(surfaceTextureListener);
+
+
+    }
+
+    public void setFrameSize(int width,int height){
+
+        viewfinderView.setFrameSize(width,height);
     }
 
     @Override

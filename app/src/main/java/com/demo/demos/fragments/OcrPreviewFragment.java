@@ -14,4 +14,8 @@ public class OcrPreviewFragment extends PreviewFragment {
     protected ScanResult ocrRecognize(byte[] image) {
         return super.ocrRecognize(image);
     }
+
+
+
+
 }

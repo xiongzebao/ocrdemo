@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.PreviewFragment">
 
     <!--<TextureView-->
@@ -10,11 +11,18 @@
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="wrap_content" />-->
 
+
+
     <com.demo.demos.views.AutoFitTextureView
         android:id="@+id/afttv_camera"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
+    <com.demo.demos.views.ViewfinderView
+        android:id="@+id/viewFinder"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </com.demo.demos.views.ViewfinderView>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
