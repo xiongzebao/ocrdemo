@@ -284,7 +284,7 @@ public class PreviewFragment extends BaseFragment {
         //   Bitmap newBitmap = BitmapUtil.rotateBitmap(temp, 90);
         //  iv_show.setImageBitmap(temp);
 
-        result.code = UPDATE_TIP;
+        result.status = UPDATE_TIP;
         result.bitmap = temp;
 
 

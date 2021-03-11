@@ -4,8 +4,6 @@ import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
-
 /**
  * @author xiongbin
  * @description:
@@ -14,18 +12,22 @@ import java.io.Serializable;
 
 public class ScanResult implements Parcelable {
     public static final  int SUCCESS=1;
-    public int code;
+    public static final  int FAILED=2;
+    public int status; // 身份证照片的状态，模糊：-1，正常：0，偏上：1，偏下：2，偏左：3，偏右：4，偏小：5，偏大;6
+    public int isSucess; // 成功：0，失败：1
+
     public String message;
     public Bitmap bitmap;
 
     protected ScanResult(Parcel in) {
-        code = in.readInt();
+        status = in.readInt();
+        isSucess = in.readInt();
         message = in.readString();
         bitmap = in.readParcelable(Bitmap.class.getClassLoader());
     }
 
     public ScanResult(int code, String message) {
-        this.code = code;
+        this.status = code;
         this.message = message;
     }
 
@@ -34,7 +36,8 @@ public class ScanResult implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(code);
+        dest.writeInt(status);
+        dest.writeInt(isSucess);
         dest.writeString(message);
         dest.writeParcelable(bitmap, flags);
     }

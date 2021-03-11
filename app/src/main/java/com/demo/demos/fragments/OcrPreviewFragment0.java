@@ -12,7 +12,7 @@ import com.demo.demos.model.ScanResult;
  * @date : 2021/3/9 8:48
  */
 
-public class OcrPreviewFragment extends PreviewFragment {
+public class OcrPreviewFragment0 extends PreviewFragment {
     MTCNN mtcnn = new MTCNN();
 
     @Override
@@ -21,3 +21,4 @@ public class OcrPreviewFragment extends PreviewFragment {
         return  mtcnn.detect(result);
     }
 }
+
