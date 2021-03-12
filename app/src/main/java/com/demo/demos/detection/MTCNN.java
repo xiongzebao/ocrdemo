@@ -169,9 +169,15 @@ public class MTCNN {
                 float left_mouse_x = outputLandmark.get();
                 float right_mouse_x = outputLandmark.get();
 
+                Log.e("xiong","w:"+w+"h:"+h);
+                Log.e("xiong","top:"+top+"left:"+left);
+                Log.e("xiong","bottom:"+bottom+"right:"+right);
+                Log.e("xiong","noise_x:"+noise_x+"noise_y:"+noise_y);
 
-
-
+                Log.e("xiong","left_eye_x:"+left_eye_x+"left_eye_y:"+left_eye_y);
+                Log.e("xiong","right_eye_x:"+right_eye_x+"right_eye_y:"+right_eye_y);
+                Log.e("xiong","left_mouse_x:"+left_mouse_x+"left_mouse_y:"+left_mouse_y);
+                Log.e("xiong","right_mouse_x:"+right_mouse_x+"right_mouse_y:"+right_mouse_y);
 
 
                 float[][] landmark = {
