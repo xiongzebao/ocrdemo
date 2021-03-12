@@ -93,7 +93,7 @@ public class CameraUtils {
             Collections.sort(sizes, new Comparator<Size>() {
                 @Override
                 public int compare(Size o1, Size o2) {
-                    return o1.getWidth() * o1.getHeight() - o2.getWidth() * o2.getHeight();
+                    return  o2.getWidth() * o2.getHeight()-o1.getWidth() * o1.getHeight();
                 }
             });
             Collections.reverse(sizes);

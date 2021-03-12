@@ -36,7 +36,13 @@
                 android:layout_height="wrap_content"
                 android:text="GL预览"/>
 
+            <ImageView
+                 android:visibility="gone"
+                android:id="@+id/iv_show"
+                android:layout_width="300dp"
+                android:layout_height="300dp">
 
+            </ImageView>
         </LinearLayout>
     </HorizontalScrollView>
 

@@ -169,6 +169,11 @@ public class MTCNN {
                 float left_mouse_x = outputLandmark.get();
                 float right_mouse_x = outputLandmark.get();
 
+
+
+
+
+
                 float[][] landmark = {
                         {left_eye_x, left_eye_y},
                         {right_eye_x, right_eye_y},
@@ -220,7 +225,12 @@ public class MTCNN {
 
         result.isSucess = isRight;
         result.status = pictureStata;
+        Log.e("xiong","isSuccess:"+result.isSucess+"status:"+result.status);
 
+
+
+
+        System.gc();
         return result;
     }
 

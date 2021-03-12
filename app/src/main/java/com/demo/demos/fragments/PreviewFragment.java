@@ -47,6 +47,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -104,11 +106,12 @@ public class PreviewFragment extends BaseFragment {
 
 
     //创建基本线程池
-    final ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(3,5,1, TimeUnit.SECONDS,
-            new LinkedBlockingQueue<Runnable>(100));
+ /*   final ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(3,5,1, TimeUnit.SECONDS,
+            new LinkedBlockingQueue<Runnable>(100));*/
 
 
 
+    private ExecutorService threadPoolExecutor  = Executors.newSingleThreadExecutor();
 
     public PreviewFragment() {
         // Required empty public constructor
@@ -145,10 +148,16 @@ public class PreviewFragment extends BaseFragment {
         return inflater.inflate(R.layout.fragment_preview, container, false);
     }
 
+
+    Bitmap getTestBitmap(){
+       // getActivity().getResources().getDrawable(R.drawable.ic_idcard);
+        return BitmapFactory.decodeResource(getResources(),R.drawable.ic_idcard);
+    }
+
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         //初始化相机
         initCamera();
         //初始化界面
@@ -160,6 +169,7 @@ public class PreviewFragment extends BaseFragment {
         cameraId = CameraUtils.getInstance().getCameraId(false);//默认使用后置相机
         //获取指定相机的输出尺寸列表，降序排序
         outputSizes = CameraUtils.getInstance().getCameraOutputSizes(cameraId, SurfaceTexture.class);
+
         //初始化预览尺寸
         previewSize = outputSizes.get(0);
     }
@@ -205,12 +215,17 @@ public class PreviewFragment extends BaseFragment {
         //设置 TextureView 的状态监听
         previewView.setSurfaceTextureListener(surfaceTextureListener);
 
+        setLabelText("请将图片放置于扫描框内");
 
     }
 
     public void setFrameSize(int width,int height){
-
         viewfinderView.setFrameSize(width,height);
+    }
+
+
+    public void setLabelText(String text){
+        viewfinderView.setLabelText(text);
     }
 
     @Override
